@@ -1,6 +1,6 @@
 var supportedTypes = ['Map', 'StreetViewPanorama'];
 
-GoogleMaps = {
+  dbuGoogleMaps = {
   load: _.once(function(options) {
     options = _.extend({ v: '3.exp' }, options);
     var params = _.map(options, function(value, key) { return key + '=' + value; }).join('&');
@@ -91,7 +91,7 @@ Template.googleMap.onRendered(function() {
   var self = this;
   self.autorun(function(c) {
     // if the api has loaded
-    if (GoogleMaps.loaded()) {
+    if (dbuGoogleMaps.loaded()) {
       var data = Template.currentData();
 
       if (! data.options) {
@@ -105,7 +105,7 @@ Template.googleMap.onRendered(function() {
 
       var canvas = self.$('.map-canvas').get(0);
 
-      GoogleMaps.create({
+      dbuGoogleMaps.create({
         name: data.name,
         type: data.type,
         element: canvas,
@@ -118,8 +118,8 @@ Template.googleMap.onRendered(function() {
 });
 
 Template.googleMap.onDestroyed(function() {
-  if (GoogleMaps.maps[this._name]) {
-    google.maps.event.clearInstanceListeners(GoogleMaps.maps[this._name].instance);
-    delete GoogleMaps.maps[this._name];
+  if (dbuGoogleMaps.maps[this._name]) {
+    google.maps.event.clearInstanceListeners(dbuGoogleMaps.maps[this._name].instance);
+    delete dbuGoogleMaps.maps[this._name];
   }
 });
